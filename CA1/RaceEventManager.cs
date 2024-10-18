@@ -33,4 +33,34 @@ public class RaceEventManager
         raceEvents.Add(event1);
         raceEvents.Add(event2);
     }
+    
+    public void CreateRaceEvent()
+    {
+        Console.Write("Enter event name: ");
+        string name = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            Console.WriteLine("Event name cannot be empty.");
+            return;
+        }
+
+        Console.Write("Enter event location: ");
+        string location = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(location))
+        {
+            Console.WriteLine("Event location cannot be empty.");
+            return;
+        }
+
+        Console.Write("Enter number of races: ");
+        if (!int.TryParse(Console.ReadLine(), out int numberOfRaces) || numberOfRaces <= 0)
+        {
+            Console.WriteLine("Invalid number of races. Please enter a positive integer.");
+            return;
+        }
+
+        RaceEvent newEvent = new RaceEvent(name, location, numberOfRaces, RaceStatus.Scheduled);
+        raceEvents.Add(newEvent);
+        Console.WriteLine("Race event created successfully.");
+    }
 }
