@@ -64,6 +64,42 @@ public class RaceEventManager
         Console.WriteLine("Race event created successfully.");
     }
     
+    public void AddRacesToEvent()
+    {
+        Console.Write("Enter event name to add races to: ");
+        string eventName = Console.ReadLine();
+
+        RaceEvent raceEvent = FindRaceEventByName(eventName);
+        if (raceEvent == null)
+        {
+            Console.WriteLine("Event not found.");
+            return;
+        }
+
+        for (int i = 0; i < raceEvent.NumberOfRaces; i++)
+        {
+            Console.Write($"Enter name for race {i + 1} (or press Enter to use default name 'Race {i + 1}'): ");
+            string raceName = Console.ReadLine();
+            if (string.IsNullOrEmpty(raceName))
+            {
+                raceName = $"Race {i + 1}";
+            }
+
+            Console.Write($"Enter start time for {raceName} (HH:MM): ");
+            string startTime = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(startTime))
+            {
+                Console.WriteLine("Start time cannot be empty.");
+                return;
+            }
+
+            Race newRace = new Race(raceName, startTime);
+            raceEvent.AddRace(newRace);
+        }
+
+        Console.WriteLine("Races added successfully.");
+    }
+    
     private RaceEvent FindRaceEventByName(string eventName)
     {
         for (int i = 0; i < raceEvents.Count; i++)
