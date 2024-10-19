@@ -3,6 +3,7 @@
 public class RaceEventManager
 {
     private List<RaceEvent> raceEvents = new List<RaceEvent>();
+    private int horseIdCounter = 5;
 
     public RaceEventManager()
     {
@@ -32,6 +33,9 @@ public class RaceEventManager
 
         raceEvents.Add(event1);
         raceEvents.Add(event2);
+        
+        // Set horseIdCounter to 5 since the first 5 horses are already added
+        horseIdCounter = 5;
     }   
     
     public void CreateRaceEvent()
@@ -143,8 +147,8 @@ public class RaceEventManager
                 }
 
                 string horseName = parts[0];
-                string horseID = parts[2];
-
+                string horseID = GenerateHorseID();
+                
                 Horse horse = new Horse(horseName, horseAge, horseID);
                 race.AddHorse(horse);
             }
@@ -172,6 +176,11 @@ public class RaceEventManager
         return null;
     }
     
+    private string GenerateHorseID()
+    {
+        horseIdCounter++;
+        return "H" + horseIdCounter.ToString("D3");
+    }
     public void ListUpcomingEvents()
     {
         if (raceEvents.Count == 0)

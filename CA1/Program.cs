@@ -65,18 +65,18 @@ class Program
                 case "1":
                     eventManager.CreateRaceEvent();
                     break;
-                // case "2":
-                //     eventManager.AddRacesToEvent();
-                //     break;
-                // case "3":
-                //     eventManager.UploadHorses();
-                //     break;
+                case "2":
+                    eventManager.AddRacesToEvent();
+                    break;
+                case "3":
+                    eventManager.UploadHorses();
+                    break;
                 // case "4":
                 //     eventManager.EnterHorseInRace();
                 //     break;
-                // case "5":
-                //     eventManager.ListUpcomingEvents();
-                //     break;
+                case "5":
+                    eventManager.ListUpcomingEvents();
+                    break;
                 case "6":
                     exit = true;
                     break;
