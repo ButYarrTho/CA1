@@ -100,6 +100,66 @@ public class RaceEventManager
         Console.WriteLine("Races added successfully.");
     }
     
+    public void UploadHorses()
+    {
+        Console.Write("Enter event name: ");
+        string eventName = Console.ReadLine();
+        Console.Write("Enter race name: ");
+        string raceName = Console.ReadLine();
+
+        RaceEvent raceEvent = FindRaceEventByName(eventName);
+        if (raceEvent == null)
+        {
+            Console.WriteLine("Event not found.");
+            return;
+        }
+
+        Race race = raceEvent.GetRace(raceName);
+        if (race == null)
+        {
+            Console.WriteLine("Race not found.");
+            return;
+        }
+
+        Console.Write("Enter file path to upload horse list: ");
+        string filePath = Console.ReadLine();
+
+        try
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split(',');
+                if (parts.Length != 3)
+                {
+                    Console.WriteLine("Invalid horse data format. Each line should contain name, age, and ID separated by commas.");
+                    continue;
+                }
+
+                if (!int.TryParse(parts[1], out int horseAge) || horseAge <= 0)
+                {
+                    Console.WriteLine("Invalid horse age. Please enter a positive integer.");
+                    continue;
+                }
+
+                string horseName = parts[0];
+                string horseID = parts[2];
+
+                Horse horse = new Horse(horseName, horseAge, horseID);
+                race.AddHorse(horse);
+            }
+            Console.WriteLine("Horses uploaded successfully.");
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("File not found.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+    
     private RaceEvent FindRaceEventByName(string eventName)
     {
         for (int i = 0; i < raceEvents.Count; i++)
