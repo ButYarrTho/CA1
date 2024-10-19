@@ -71,9 +71,9 @@ class Program
                 case "3":
                     eventManager.UploadHorses();
                     break;
-                // case "4":
-                //     eventManager.EnterHorseInRace();
-                //     break;
+                case "4":
+                    eventManager.EnterHorseInRace();
+                    break;
                 case "5":
                     eventManager.ListUpcomingEvents();
                     break;
