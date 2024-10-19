@@ -32,7 +32,7 @@ public class RaceEventManager
 
         raceEvents.Add(event1);
         raceEvents.Add(event2);
-    }
+    }   
     
     public void CreateRaceEvent()
     {
@@ -63,4 +63,39 @@ public class RaceEventManager
         raceEvents.Add(newEvent);
         Console.WriteLine("Race event created successfully.");
     }
+    
+    private RaceEvent FindRaceEventByName(string eventName)
+    {
+        for (int i = 0; i < raceEvents.Count; i++)
+        {
+            if (raceEvents[i].Name == eventName)
+            {
+                return raceEvents[i];
+            }
+        }
+        return null;
+    }
+    
+    public void ListUpcomingEvents()
+    {
+        if (raceEvents.Count == 0)
+        {
+            Console.WriteLine("No upcoming events available.");
+            return;
+        }
+
+        foreach (var raceEvent in raceEvents)
+        {
+            Console.WriteLine($"\nEvent: {raceEvent.Name}, Location: {raceEvent.Location}, Status: {raceEvent.Status}");
+            foreach (var race in raceEvent.Races)
+            {
+                Console.WriteLine($"  Race: {race.Name}, Start Time: {race.StartTime}");
+                foreach (var horse in race.Horses)
+                {
+                    Console.WriteLine($"    Horse: {horse.Name}, Age: {horse.Age}, ID: {horse.HorseID}");
+                }
+            }
+        }
+    }
+
 }
