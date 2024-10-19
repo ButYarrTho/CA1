@@ -164,6 +164,49 @@ public class RaceEventManager
         }
     }
     
+    public void EnterHorseInRace()
+    {
+        Console.Write("Enter event name: ");
+        string eventName = Console.ReadLine();
+        Console.Write("Enter race name: ");
+        string raceName = Console.ReadLine();
+
+        RaceEvent raceEvent = FindRaceEventByName(eventName);
+        if (raceEvent == null)
+        {
+            Console.WriteLine("Event not found.");
+            return;
+        }
+
+        Race race = raceEvent.GetRace(raceName);
+        if (race == null)
+        {
+            Console.WriteLine("Race not found.");
+            return;
+        }
+
+        Console.Write("Enter horse name: ");
+        string horseName = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(horseName))
+        {
+            Console.WriteLine("Horse name cannot be empty.");
+            return;
+        }
+
+        Console.Write("Enter horse age: ");
+        if (!int.TryParse(Console.ReadLine(), out int horseAge) || horseAge <= 0)
+        {
+            Console.WriteLine("Invalid horse age. Please enter a positive integer.");
+            return;
+        }
+
+        string horseID = GenerateHorseID();
+
+        Horse horse = new Horse(horseName, horseAge, horseID);
+        race.AddHorse(horse);
+        Console.WriteLine("Horse entered successfully.");
+    }
+    
     private RaceEvent FindRaceEventByName(string eventName)
     {
         for (int i = 0; i < raceEvents.Count; i++)
